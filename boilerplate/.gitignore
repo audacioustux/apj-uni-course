@@ -17,3 +17,5 @@ node_modules/
 .classpath
 .project
 .settings
+
+node_modules/
