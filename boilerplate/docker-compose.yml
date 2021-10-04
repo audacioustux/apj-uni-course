@@ -3,7 +3,6 @@ version: "3"
 services:
   tomcat:
     build: ./tomcat
-    env_file: .env
     volumes:
       - ./target/${COMPOSE_PROJECT_NAME}:/home/linuxbrew/.linuxbrew/opt/tomcat/libexec/webapps/${COMPOSE_PROJECT_NAME}
     ports:
