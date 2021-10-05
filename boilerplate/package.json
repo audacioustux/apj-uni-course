@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "docker-compose": "PROJECT_NAME=$(basename $(pwd)) docker-compose up -d",
+    "docker-compose": "PROJECT_NAME=$(basename $(pwd)) docker-compose up",
     "browser-sync": "browser-sync start --proxy \"localhost:8888\" --files \"target/$(basename $(pwd))\"",
     "watch-maven": "nodemon -w src -e jsp,java --exec \"mvn war:exploded\"",
-    "start": "npm run docker-compose && concurrently 'npm run watch-maven' 'npm run browser-sync' -n \"maven,browser-sync\""
+    "start": "concurrently -k 'npm run docker-compose' 'npm run watch-maven' 'npm run browser-sync' -n \"tomcat,w:maven,browser-sync\""
   },
   "workspaces": [],
   "devDependencies": {
