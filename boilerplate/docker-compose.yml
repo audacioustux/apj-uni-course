@@ -2,7 +2,7 @@ version: "3"
 
 services:
   tomcat:
-    build: ./tomcat
+    build: ../tomcat
     volumes:
       - ./target/${PROJECT_NAME?}:/usr/local/tomcat/webapps/${PROJECT_NAME?}
     ports:
