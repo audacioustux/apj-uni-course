@@ -4,6 +4,6 @@ services:
   tomcat:
     build: ./tomcat
     volumes:
-      - ./target/${COMPOSE_PROJECT_NAME}:/home/linuxbrew/.linuxbrew/opt/tomcat/libexec/webapps/${COMPOSE_PROJECT_NAME}
+      - ./target/${PROJECT_NAME?}:/usr/local/tomcat/webapps/${PROJECT_NAME?}
     ports:
       - 8888:8080
