@@ -6,9 +6,9 @@ project/*
 !project/plugins.sbt
 !project/build.properties
 
-.bloop/
-.bsp/
-.metals/
+.bloop
+.bsp
+.metals
 
 .DS_Store
 
@@ -16,6 +16,6 @@ node_modules/
 .idea/
 .classpath
 .project
-.settings/
+.settings
 
 node_modules/
