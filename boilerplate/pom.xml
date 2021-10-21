@@ -9,8 +9,6 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <servlet.version>3.1.0</servlet.version>
-        <jstl.version>1.2</jstl.version>
     </properties>
     <dependencies>
         <dependency>
