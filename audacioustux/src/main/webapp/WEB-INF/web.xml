@@ -7,4 +7,12 @@
             <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
+    <servlet>
+        <servlet-name>SignupController</servlet-name>
+        <servlet-class>com.audacioustux.controller.SignupController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignupController</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
 </web-app>
