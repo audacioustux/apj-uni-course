@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  tomcat:
+    build: ../tomcat
+    volumes:
+      - ./target/${PROJECT_NAME?}.war:/usr/local/tomcat/webapps/${PROJECT_NAME?}.war
+    ports:
+      - 8888:8080
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATA: /data/postgres
+    command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all -c max_connections=200
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres:

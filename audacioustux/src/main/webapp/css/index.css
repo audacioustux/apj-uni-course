@@ -1,0 +1,16 @@
+@charset "utf-8";
+@import "_tailwind.css";
+@import "_fonts.css";
+@import "_h_tags.css";
+
+.greeting {
+  position: relative;
+  width: min(1408px, calc(80vw + 1rem));
+  font-size: clamp(0.875rem, 3vw, 3.8rem);
+  @apply py-12/em;
+
+  a {
+      @apply border-b border-dashed border-current transition;
+      @apply hover:border-solid hover:border-rose-500 hover:border-b-2;
+  }
+}
