@@ -1,15 +1,17 @@
 {
   "scripts": {
-    "docker-compose": "docker-compose up -d",
+    "watch-docker": "docker-compose up",
+    "docker": "npm run watch-docker -- -d",
     "browser-sync": "browser-sync start --proxy \"localhost:8888\" --files \"target/$(basename $(pwd))\"",
     "tailwind": "npx tailwindcss -i src/main/webapp/css/index.css -o src/main/resources/css/index.css --postcss postcss.config.js",
     "watch-tailwind": "npm run tailwind -- -w",
     "maven": "mvn package",
-    "watch-maven": "nodemon -w src/main/webapp -e jsp,java,html -w pom.xml -w src/main/resources/css/index.css --exec \"npm run maven\"",
-    "start": "ulimit -c unlimited && PROJECT_NAME=$(basename $(pwd)) npm run docker-compose && concurrently -k 'npm:watch-*' 'npm:browser-sync' -n \"maven,browser-sync\""
+    "watch-maven": "nodemon -w src/main -e jsp,java,html -w src/main/webapp/WEB-INF/web.xml -w pom.xml -w src/main/resources/css/index.css --exec \"npm run maven\"",
+    "start": "ulimit -c unlimited && PROJECT_NAME=$(basename $(pwd)) concurrently -k 'npm:watch-*' 'npm:browser-sync'"
   },
   "workspaces": [],
   "devDependencies": {
+    "@tailwindcss/forms": "^0.3.4",
     "autoprefixer": "^10.3.7",
     "browser-sync": "^2.27.5",
     "concurrently": "^6.3.0",

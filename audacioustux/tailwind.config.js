@@ -1,13 +1,5 @@
 const colors = require("tailwindcss/colors");
-const {
-  screens,
-  fontFamily,
-  fontSize,
-  spacing,
-  borderRadius,
-  lineHeight,
-  minHeight,
-} = require("tailwindcss/defaultTheme");
+const { screens, fontFamily, fontSize, spacing, borderRadius, lineHeight, minHeight } = require("tailwindcss/defaultTheme");
 
 const { pickBy } = require("lodash");
 
@@ -15,18 +7,12 @@ const key2em = (key) => `${key}/em`;
 const rem2em = (rem) => rem.replace("rem", "em");
 const isRem = (v) => v.endsWith("rem");
 
-const mapEntries = (obj, k_func, v_func) =>
-  Object.fromEntries(
-    Object.entries(obj).map(([k, v]) => [k_func(k), v_func(v)])
-  );
+const mapEntries = (obj, k_func, v_func) => Object.fromEntries(Object.entries(obj).map(([k, v]) => [k_func(k), v_func(v)]));
 
 const config = {
   mode: "jit",
   purge: ["./src/main/webapp/**/*.{jsp,html}"],
-  plugins: [
-    require("tailwindcss-children"),
-    require("tailwindcss-pseudo-elements"),
-  ],
+  plugins: [require("tailwindcss-children"), require("tailwindcss-pseudo-elements"), require("@tailwindcss/forms")],
   darkMode: "class",
   theme: {
     screens: { xs: "320px", ...screens },

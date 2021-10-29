@@ -3,13 +3,17 @@ version: "3"
 services:
   tomcat:
     build: ../tomcat
+    restart: on-failure
     volumes:
       - ./target/${PROJECT_NAME?}.war:/usr/local/tomcat/webapps/${PROJECT_NAME?}.war
     ports:
       - 8888:8080
+    links:
+      - "postgres:db"
 
   postgres:
     image: postgres:13
+    restart: on-failure
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -19,13 +23,7 @@ services:
        - postgres:/data/postgres
     ports:
       - "5433:5432"
-    networks:
-      - postgres
     restart: unless-stopped
   
-networks:
-  postgres:
-    driver: bridge
-
 volumes:
     postgres:
