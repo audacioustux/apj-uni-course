@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.Properties;
 
 public class DBConnection implements AutoCloseable {
+    // TODO: move to env/config
     private static final String DATABASE_DRIVER = "org.postgresql.Driver";
     private static final String DATABASE_URL = "jdbc:postgresql://db:5432/postgres";
     private static final String USERNAME = "postgres";

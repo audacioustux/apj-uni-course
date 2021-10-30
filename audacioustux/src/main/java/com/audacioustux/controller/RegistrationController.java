@@ -28,7 +28,7 @@ public class RegistrationController extends HttpServlet {
 
         try {
             Accounts.insert(username, email, rawPassword);
-            res.sendRedirect("./");
+            res.sendRedirect("./login");
         } catch (SQLException e) {
             out.println(e.getMessage());
         }

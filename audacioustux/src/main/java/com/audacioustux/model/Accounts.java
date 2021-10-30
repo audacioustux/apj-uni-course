@@ -11,7 +11,8 @@ public class Accounts {
             String sql = "INSERT INTO accounts (username, email, hashed_password) VALUES (?,?,?)";
 
             try (PreparedStatement Ups = dbc.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                final String hashedPassword = Password.hash(rawPassword).withArgon2().getResult();
+                final String hashedPassword = Password.hash(rawPassword).addSalt(System.getenv("SECRET")).withArgon2()
+                        .getResult();
 
                 Ups.setString(1, username);
                 Ups.setString(2, email);
@@ -36,10 +37,29 @@ public class Accounts {
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        if (Password.check(rawPassword, rs.getString("hashed_password")).withArgon2())
-                            return new Account(UUID.fromString(rs.getString("id")), rs.getString("username"),
-                                    rs.getString("email"));
+                        if (Password.check(rawPassword, rs.getString("hashed_password"))
+                                .addSalt(System.getenv("SECRET")).withArgon2()) {
+                            UUID id = UUID.fromString(rs.getString("id"));
+                            return new Account(id, rs.getString("username"), rs.getString("email"));
+                        }
                         return null;
+                    }
+                    return null;
+                }
+            }
+        }
+    }
+
+    public static Account load(Account account) throws SQLException {
+        try (DBConnection dbc = new DBConnection()) {
+            String sql = "SELECT * FROM accounts WHERE id=?";
+
+            try (PreparedStatement ps = dbc.getConnection().prepareStatement(sql)) {
+                ps.setObject(1, account.getId());
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return new Account(account.getId(), rs.getString("username"), rs.getString("email"));
                     }
                     return null;
                 }

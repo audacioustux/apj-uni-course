@@ -4,6 +4,7 @@ services:
   tomcat:
     build: ../tomcat
     restart: on-failure
+    env_file: .env
     volumes:
       - ./target/${PROJECT_NAME?}.war:/usr/local/tomcat/webapps/${PROJECT_NAME?}.war
     ports:
@@ -18,7 +19,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       PGDATA: /data/postgres
-    command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all -c max_connections=200
+    command: postgres -c shared_preload_libraries=pg_stat_statements -c log_statement=all -c pg_stat_statements.track=all -c max_connections=200
     volumes:
        - postgres:/data/postgres
     ports:

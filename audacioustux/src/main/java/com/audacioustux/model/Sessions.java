@@ -21,4 +21,21 @@ public class Sessions {
             }
         }
     }
+
+    public static Session get(UUID id) throws SQLException {
+        try (DBConnection dbc = new DBConnection()) {
+            String sql = "SELECT * FROM sessions WHERE id=?";
+
+            try (PreparedStatement ps = dbc.getConnection().prepareStatement(sql)) {
+                ps.setObject(1, id);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return new Session(id, new Account(UUID.fromString(rs.getString("account_id"))));
+                    }
+                    return null;
+                }
+            }
+        }
+    }
 }

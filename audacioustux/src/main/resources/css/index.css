@@ -908,8 +908,8 @@ select{
   height: 100%;
 }
 
-.h-12{
-  height: 3rem;
+.h-20{
+  height: 5rem;
 }
 
 .h-4{
@@ -930,10 +930,6 @@ select{
 
 .h-8{
   height: 2rem;
-}
-
-.h-20{
-  height: 5rem;
 }
 
 .min-h-vmin-full{
@@ -1060,6 +1056,10 @@ select{
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
+.rounded-full{
+  border-radius: 9999px;
+}
+
 .rounded-md{
   border-radius: 0.375rem;
 }
@@ -1070,10 +1070,6 @@ select{
 
 .rounded{
   border-radius: 0.25rem;
-}
-
-.rounded-full{
-  border-radius: 9999px;
 }
 
 .rounded-t-md{

@@ -16,10 +16,6 @@ public class Session {
         this.account = account;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public UUID getId() {
         return id;
     }

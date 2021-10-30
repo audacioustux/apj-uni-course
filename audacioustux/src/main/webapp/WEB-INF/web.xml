@@ -7,6 +7,24 @@
             <page-encoding>UTF-8</page-encoding>
         </jsp-property-group>
     </jsp-config>
+
+    <filter>
+        <filter-name>ReqLogFilter</filter-name>
+        <filter-class>com.audacioustux.filter.ReqLogFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ReqLogFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AuthenticateFilter</filter-name>
+        <filter-class>com.audacioustux.filter.AuthenticateFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticateFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>RegistrationController</servlet-name>
         <servlet-class>com.audacioustux.controller.RegistrationController</servlet-class>

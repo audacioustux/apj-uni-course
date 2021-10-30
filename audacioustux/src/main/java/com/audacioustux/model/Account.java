@@ -17,10 +17,6 @@ public class Account {
         this.email = email;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public UUID getId() {
         return id;
     }
