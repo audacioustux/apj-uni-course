@@ -8,23 +8,22 @@ import java.io.*;
 import java.sql.*;
 import com.audacioustux.model.*;
 
-public class RegistrationController extends HttpServlet {
-
+public class BlogNewController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.getRequestDispatcher("/register.jsp").forward(req, res);
+        req.getRequestDispatcher("/blogs/new.jsp").forward(req, res);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        String username = req.getParameter("username");
-        String email = req.getParameter("email");
-        String rawPassword = req.getParameter("password");
+        String title = req.getParameter("title");
+        String body = req.getParameter("body");
+        Account account = (Account) req.getAttribute("account");
 
         res.setContentType("text/html");
         PrintWriter out = res.getWriter();
 
         try {
-            Accounts.insert(username, email, rawPassword);
-            res.sendRedirect("/login");
+            Blog blog = Blogs.insert(account, title, body);
+            res.sendRedirect("/blog/" + blog.getId());
         } catch (SQLException e) {
             out.println(e.getMessage());
         }

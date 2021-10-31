@@ -834,14 +834,6 @@ select{
   left: 0px;
 }
 
-.top-4{
-  top: 1rem;
-}
-
-.bottom-4{
-  bottom: 1rem;
-}
-
 .right-0{
   right: 0px;
 }
@@ -932,8 +924,8 @@ select{
   height: 2rem;
 }
 
-.min-h-vmin-full{
-  min-height: 100vmin;
+.min-h-screen{
+  min-height: 100vh;
 }
 
 .min-h-full{

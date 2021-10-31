@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
+import com.audacioustux.model.Account;
 import com.audacioustux.model.Accounts;
 import com.audacioustux.model.Session;
 import com.audacioustux.model.Sessions;
-import com.audacioustux.util.MD5;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 
@@ -19,7 +18,7 @@ import jakarta.servlet.http.*;
 
 public class AuthenticateFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-            throws IOException, ServletException, JWTVerificationException {
+            throws IOException, ServletException {
 
         Cookie[] cookies = ((HttpServletRequest) req).getCookies();
 
@@ -32,17 +31,18 @@ public class AuthenticateFilter implements Filter {
                 if (cookieName.equals("refresh_token")) {
                     Algorithm algorithm = Algorithm.HMAC256(System.getenv("SECRET"));
                     JWTVerifier verifier = JWT.require(algorithm).build();
-                    DecodedJWT jwt = verifier.verify(cookieValue);
 
+                    req.setAttribute("account", null);
                     try {
-                        Session session = Sessions.get(UUID.fromString(jwt.getClaim("sid").asString()));
+                        DecodedJWT jwt = verifier.verify(cookieValue);
+                        Session session = Sessions.get(UUID.fromString(jwt.getClaim("sid").asString()),
+                                new Account(UUID.fromString(jwt.getSubject())));
 
                         if (session != null) {
                             req.setAttribute("account", Accounts.load(session.getAccount()));
-                        } else
-                            req.setAttribute("account", null);
+                        }
                     } catch (SQLException e) {
-                        throw new ServletException("hmm.. problem... figureitoutyoself :/");
+                        throw new ServletException(e.getMessage());
                     }
                 }
             }

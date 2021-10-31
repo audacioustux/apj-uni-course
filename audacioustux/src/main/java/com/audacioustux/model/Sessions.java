@@ -22,16 +22,17 @@ public class Sessions {
         }
     }
 
-    public static Session get(UUID id) throws SQLException {
+    public static Session get(UUID id, Account account) throws SQLException {
         try (DBConnection dbc = new DBConnection()) {
-            String sql = "SELECT * FROM sessions WHERE id=?";
+            String sql = "SELECT * FROM sessions WHERE id=? and account_id=?";
 
             try (PreparedStatement ps = dbc.getConnection().prepareStatement(sql)) {
                 ps.setObject(1, id);
+                ps.setObject(2, account.getId());
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        return new Session(id, new Account(UUID.fromString(rs.getString("account_id"))));
+                        return new Session(id, account);
                     }
                     return null;
                 }

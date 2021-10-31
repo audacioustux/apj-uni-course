@@ -6,8 +6,9 @@
     "tailwind": "npx tailwindcss -i src/main/webapp/css/index.css -o src/main/resources/css/index.css --postcss postcss.config.js",
     "watch-tailwind": "npm run tailwind -- -w",
     "maven": "mvn package",
-    "watch-maven": "nodemon -w src/main -e jsp,java,html -w src/main/webapp/WEB-INF/web.xml -w pom.xml -w src/main/resources/css/index.css --exec \"npm run maven\"",
-    "start": "ulimit -c unlimited && PROJECT_NAME=$(basename $(pwd)) concurrently -k 'npm:watch-*' 'npm:browser-sync'"
+    "watch-maven": "nodemon -w src/main -e jsp,java,html,xml -w pom.xml -w src/main/resources/css/index.css --exec \"npm run maven\"",
+    "dev": "ulimit -c unlimited && RELEASE_MODE=dev concurrently -k 'npm:watch-*' 'npm:browser-sync'",
+    "reset": "docker-compose rm -sfv"
   },
   "workspaces": [],
   "devDependencies": {

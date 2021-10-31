@@ -4,11 +4,10 @@ import java.sql.*;
 import java.util.Properties;
 
 public class DBConnection implements AutoCloseable {
-    // TODO: move to env/config
-    private static final String DATABASE_DRIVER = "org.postgresql.Driver";
-    private static final String DATABASE_URL = "jdbc:postgresql://db:5432/postgres";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "postgres";
+    private static final String DRIVER = System.getenv("DATABASE_DRIVER");
+    private static final String URL = System.getenv("DATABASE_URL");
+    private static final String USERNAME = System.getenv("DATABASE_USERNAME");
+    private static final String PASSWORD = System.getenv("DATABASE_PASSWORD");
 
     private Connection connection;
     private static Properties properties;
@@ -24,12 +23,12 @@ public class DBConnection implements AutoCloseable {
 
     public DBConnection() throws SQLException {
         try {
-            Class.forName(DATABASE_DRIVER);
+            Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             System.exit(1);
         }
-        connection = DriverManager.getConnection(DATABASE_URL, getProperties());
+        connection = DriverManager.getConnection(URL, getProperties());
     }
 
     public Connection getConnection() {

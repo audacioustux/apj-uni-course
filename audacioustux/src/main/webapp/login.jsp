@@ -6,11 +6,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - AudaciousTux</title>
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="/css/index.css" />
   </head>
 
   <body class="h-full">
-    <%@include file="./components/login-form.jsp" %>
+    <%@include file="WEB-INF/components/login-form.jsp" %>
 
     <script src="//unpkg.com/alpinejs" defer></script>
   </body>

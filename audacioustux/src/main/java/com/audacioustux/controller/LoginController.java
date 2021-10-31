@@ -1,13 +1,8 @@
 package com.audacioustux.controller;
 
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import java.io.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -26,10 +21,13 @@ public class LoginController extends HttpServlet {
         boolean do_remember = req.getParameter("remember-me") != null;
 
         res.setContentType("text/html");
-        PrintWriter out = res.getWriter();
 
         try {
             Account account = Accounts.authenticate(username, rawPassword);
+            if (account == null) {
+                throw new ServletException("account does not exist");
+            }
+
             Session session = Sessions.insert(account);
             String sid = session.getId().toString();
 
@@ -45,9 +43,9 @@ public class LoginController extends HttpServlet {
                 ck.setMaxAge(-1);
 
             res.addCookie(ck);
-            res.sendRedirect("./");
+            res.sendRedirect("/");
         } catch (SQLException e) {
-            out.println(e.getMessage());
+            new ServletException(e.getMessage());
         }
     }
 }

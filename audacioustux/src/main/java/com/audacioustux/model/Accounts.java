@@ -59,7 +59,9 @@ public class Accounts {
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        return new Account(account.getId(), rs.getString("username"), rs.getString("email"));
+                        account.setUsername(rs.getString("username"));
+                        account.setEmail(rs.getString("email"));
+                        return account;
                     }
                     return null;
                 }
