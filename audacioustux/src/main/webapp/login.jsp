@@ -10,7 +10,7 @@
   </head>
 
   <body class="h-full">
-    <%@include file="WEB-INF/components/login-form.jsp" %>
+    <%@include file="WEB-INF/components/backto-home-nav.jsp" %> <%@include file="WEB-INF/components/login-form.jsp" %>
 
     <script src="//unpkg.com/alpinejs" defer></script>
   </body>
