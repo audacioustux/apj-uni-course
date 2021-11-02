@@ -13,9 +13,8 @@ import com.audacioustux.model.*;
 
 public class BlogsController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        Account account = (Account) req.getAttribute("account");
         try {
-            ArrayList<Blog> blogs = Blogs.getAllByAccount(account);
+            ArrayList<Blog> blogs = Blogs.getAll();
 
             req.setAttribute("blogs", blogs);
         } catch (SQLException e) {

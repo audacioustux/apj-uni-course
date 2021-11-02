@@ -68,4 +68,11 @@ public class Accounts {
             }
         }
     }
+
+    public static Boolean is_superuser(Account account) {
+        if (account != null && account.getUsername().equals(System.getenv("SUPERUSER")))
+            return true;
+        else
+            return false;
+    }
 }

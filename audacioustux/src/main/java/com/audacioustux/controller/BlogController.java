@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.ServletException;
 import java.io.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.audacioustux.model.*;
@@ -17,9 +18,15 @@ public class BlogController extends HttpServlet {
 
         try {
             Blog blog = Blogs.get(blog_id);
-            Accounts.load(blog.getAccount());
+            // Accounts.load(blog.getAccount());
+            ArrayList<Comment> comments = Comments.getByBlog(blog);
+            // ewwwww...
+            for (Comment comment : comments) {
+                Accounts.load(comment.getAccount());
+            }
 
             req.setAttribute("blog", blog);
+            req.setAttribute("comments", comments);
         } catch (SQLException e) {
             throw new ServletException(e.getMessage());
         }

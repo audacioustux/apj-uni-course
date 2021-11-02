@@ -32,6 +32,10 @@
         <filter-name>DisallowIfLoggedFilter</filter-name>
         <filter-class>com.audacioustux.filter.DisallowIfLoggedFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>AllowOnlySuperuser</filter-name>
+        <filter-class>com.audacioustux.filter.AllowOnlySuperuser</filter-class>
+    </filter>
 
     <servlet>
         <servlet-name>RegistrationController</servlet-name>
@@ -85,7 +89,7 @@
         <servlet-class>com.audacioustux.controller.BlogNewController</servlet-class>
     </servlet>
     <filter-mapping>
-        <filter-name>AllowIfLoggedFilter</filter-name>
+        <filter-name>AllowOnlySuperuser</filter-name>
         <url-pattern>/blogs/new</url-pattern>
     </filter-mapping>
     <servlet-mapping>
@@ -99,5 +103,18 @@
     <servlet-mapping>
         <servlet-name>BlogController</servlet-name>
         <url-pattern>/blog/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CommentNewController</servlet-name>
+        <servlet-class>com.audacioustux.controller.CommentNewController</servlet-class>
+    </servlet>
+    <filter-mapping>
+        <filter-name>AllowIfLoggedFilter</filter-name>
+        <url-pattern>/comments/new</url-pattern>
+    </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentNewController</servlet-name>
+        <url-pattern>/comments/new</url-pattern>
     </servlet-mapping>
 </web-app>

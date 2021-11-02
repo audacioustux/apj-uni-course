@@ -1,4 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ page import="com.audacioustux.model.Accounts" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,9 @@
     <%@include file="../WEB-INF/components/page-header.jsp" %>
     <c:forEach var="blog" items="${blogs}"> <a href="/blog/${blog.getId()}">${blog.getTitle()}</a> <br /> </c:forEach>
 
-    <a href="/blogs/new">Write a new blog</a>
+    <c:if test="${Accounts.is_superuser(account)}">
+      <a href="/blogs/new">Write a new blog</a>
+    </c:if>
     <script src="//unpkg.com/alpinejs" defer></script>
   </body>
 </html>

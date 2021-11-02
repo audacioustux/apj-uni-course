@@ -42,17 +42,17 @@ public class Blogs {
         }
     }
 
-    public static ArrayList<Blog> getAllByAccount(Account account) throws SQLException {
+    public static ArrayList<Blog> getAll() throws SQLException {
         try (DBConnection dbc = new DBConnection()) {
-            String sql = "SELECT * FROM blogs WHERE account_id=?";
+            String sql = "SELECT * FROM blogs";
 
             try (PreparedStatement ps = dbc.getConnection().prepareStatement(sql)) {
-                ps.setObject(1, account.getId());
 
                 try (ResultSet rs = ps.executeQuery()) {
                     ArrayList<Blog> blogs = new ArrayList<Blog>();
-                    if (rs.next()) {
-                        blogs.add(new Blog(UUID.fromString(rs.getString("id")), account, rs.getString("title"),
+                    while (rs.next()) {
+                        blogs.add(new Blog(UUID.fromString(rs.getString("id")),
+                                new Account(UUID.fromString(rs.getString("id"))), rs.getString("title"),
                                 rs.getString("body")));
                     }
                     return blogs;
