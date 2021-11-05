@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "docker-compose": "docker-compose up",
+    "browser-sync": "browser-sync start --proxy \"localhost:8888\" --files \"target/$(basename $(pwd))\"",
+    "watch-maven": "nodemon -w src -e jsp,java --exec \"mvn package\"",
+    "start": "PROJECT_NAME=$(basename $(pwd)) concurrently -k 'npm:docker-compose' 'npm:watch-maven' 'npm:browser-sync' -n \"tomcat,maven,browser-sync\""
+  },
+  "workspaces": [],
+  "devDependencies": {
+    "browser-sync": "^2.27.5",
+    "concurrently": "^6.3.0",
+    "nodemon": "^2.0.13"
+  }
+}
