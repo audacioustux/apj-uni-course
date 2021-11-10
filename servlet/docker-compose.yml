@@ -3,7 +3,9 @@ version: "3"
 services:
   tomcat:
     build: ../tomcat
+    restart: on-failure
+    env_file: .env
     volumes:
-      - ./target/${PROJECT_NAME?}.war:/usr/local/tomcat/webapps/${PROJECT_NAME?}.war
+      - ./target/${PROJECT_NAME?}.war:/usr/local/tomcat/webapps/ROOT.war
     ports:
       - 8888:8080

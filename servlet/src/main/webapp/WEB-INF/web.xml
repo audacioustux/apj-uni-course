@@ -1,4 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" version="5.0">
-    <display-name>Archetype Created Web Application</display-name>
+    <display-name>AudaciousTux - portfolio</display-name>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
+    <filter>
+        <filter-name>ReqLogFilter</filter-name>
+        <filter-class>com.audacioustux.filter.ReqLogFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ReqLogFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AuthenticateFilter</filter-name>
+        <filter-class>com.audacioustux.filter.AuthenticateFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticateFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AllowIfLoggedFilter</filter-name>
+        <filter-class>com.audacioustux.filter.AllowIfLoggedFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>DisallowIfLoggedFilter</filter-name>
+        <filter-class>com.audacioustux.filter.DisallowIfLoggedFilter</filter-class>
+    </filter>
+
+    <servlet>
+        <servlet-name>RegistrationController</servlet-name>
+        <servlet-class>com.audacioustux.controller.RegistrationController</servlet-class>
+    </servlet>
+    <filter-mapping>
+        <filter-name>DisallowIfLoggedFilter</filter-name>
+        <url-pattern>/register</url-pattern>
+    </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationController</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>com.audacioustux.controller.LoginController</servlet-class>
+    </servlet>
+    <filter-mapping>
+        <filter-name>DisallowIfLoggedFilter</filter-name>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>com.audacioustux.controller.LogoutController</servlet-class>
+    </servlet>
+    <filter-mapping>
+        <filter-name>AllowIfLoggedFilter</filter-name>
+        <url-pattern>/logout</url-pattern>
+    </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteAccountController</servlet-name>
+        <servlet-class>com.audacioustux.controller.DeleteAccountController</servlet-class>
+    </servlet>
+    <filter-mapping>
+        <filter-name>AllowIfLoggedFilter</filter-name>
+        <url-pattern>/accounts/delete</url-pattern>
+    </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountController</servlet-name>
+        <url-pattern>/accounts/delete</url-pattern>
+    </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>AllowIfLoggedFilter</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
 </web-app>

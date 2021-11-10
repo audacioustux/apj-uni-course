@@ -1,6 +1,7 @@
 target
 *.class
 *.log
+logs/
 
 project/*
 !project/plugins.sbt
@@ -17,5 +18,7 @@ node_modules/
 .classpath
 .project
 .settings
+
+*.iml
 
 node_modules/
